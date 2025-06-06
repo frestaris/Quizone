@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -14,71 +20,11 @@ body {
   align-items: center;
   justify-content: center;
   padding: 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 .category-container {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-h2,
-h3 {
-  text-align: center;
-  color: #333;
-}
-
-label {
-  display: flex;
-  flex-direction: column;
-  font-weight: 500;
-  color: #444;
-}
-
-.answers button {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  background-color: #e0e0e0;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.answers button:hover {
-  background-color: #d5d5d5;
-}
-
-.answers button.correct {
-  background-color: #4caf50;
-  color: white;
-}
-
-.answers button.wrong {
-  background-color: #f44336;
-  color: white;
-}
-
-button {
-  padding: 10px 15px;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: none;
-  background-color: #2196f3;
-  color: white;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-button:hover {
-  background-color: #1976d2;
-}
-
-p {
-  margin: 0;
-  text-align: center;
-  font-size: 1rem;
-  color: #555;
 }

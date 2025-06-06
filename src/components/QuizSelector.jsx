@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./QuizSelector.css";
 
 function QuizSelector({ onStartQuiz }) {
   const [categories, setCategories] = useState([]);
@@ -17,10 +18,14 @@ function QuizSelector({ onStartQuiz }) {
 
   return (
     <div className="selector-container">
-      <h2>Select Quiz</h2>
-      <label>
+      <h2>Quiz-One</h2>
+      <label className="selector-label">
         Category:
-        <select onChange={(e) => setCategory(e.target.value)} value={category}>
+        <select
+          className="selector-select"
+          onChange={(e) => setCategory(e.target.value)}
+          value={category}
+        >
           {categories.map((cat) => (
             <option key={cat.id} value={cat.id}>
               {cat.name.replace(/^(Entertainment|Science):\s*/, "")}{" "}
@@ -28,9 +33,11 @@ function QuizSelector({ onStartQuiz }) {
           ))}
         </select>
       </label>
-      <label>
+
+      <label className="selector-label">
         Difficulty:
         <select
+          className="selector-select"
           onChange={(e) => setDifficulty(e.target.value)}
           value={difficulty}
         >
@@ -39,7 +46,10 @@ function QuizSelector({ onStartQuiz }) {
           <option value="hard">Hard</option>
         </select>
       </label>
-      <button onClick={startQuiz}>Start Quiz</button>
+
+      <button className="start-button" onClick={startQuiz}>
+        Start Quiz
+      </button>
     </div>
   );
 }

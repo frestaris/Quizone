@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProgressBar from "./ProgressBar";
+import "./Quiz.css";
 
 function shuffleArray(array) {
   const arr = [...array]; // create a copy to avoid mutating original
@@ -42,7 +43,7 @@ function Quiz({ config, onBack }) {
   }, [config]);
 
   useEffect(() => {
-    if (showResult) return; // stop timer when quiz ended
+    if (showResult) return;
 
     const timerId = setInterval(() => {
       setTimer((t) => t + 1);
@@ -57,7 +58,6 @@ function Quiz({ config, onBack }) {
     if (answer === questions[currentIndex].correct_answer) {
       setScore((s) => s + 1);
     }
-    setTimeout(() => handleNext(), 1500);
   };
 
   const handleNext = () => {
@@ -69,14 +69,19 @@ function Quiz({ config, onBack }) {
     }
   };
 
-  if (questions.length === 0) return <p>Loading questions...</p>;
+  if (questions.length === 0) return <span className="spinner"></span>;
 
   if (showResult)
     return (
       <div className="result-container">
-        <h2>Quiz Completed</h2>
+        <h2>🎉 Quiz Completed</h2>
         <p>
           Your Score: {score} / {questions.length}
+        </p>
+        <p>
+          {score >= 6
+            ? "✅ Great job! You did really well!"
+            : "💡 Keep practicing! You’ll improve with time!"}
         </p>
         <button onClick={onBack}>Back to Start</button>
       </div>
@@ -92,9 +97,14 @@ function Quiz({ config, onBack }) {
 
   return (
     <div className="quiz-container">
-      <ProgressBar current={currentIndex} total={questions.length} />
       <h2 dangerouslySetInnerHTML={{ __html: q.question }} />
-      <p>Time: {formatTime(timer)}</p>
+      <div className="quiz-info">
+        <p>Time: {formatTime(timer)}</p>
+        <p>
+          Score: {score}/ {questions.length}
+        </p>
+      </div>
+      <ProgressBar current={currentIndex} total={questions.length} />
       <div className="answers">
         {q.answers.map((ans, idx) => {
           const isCorrect = ans === q.correct_answer;
@@ -113,12 +123,25 @@ function Quiz({ config, onBack }) {
                   : ""
               }
               dangerouslySetInnerHTML={{ __html: ans }}
+              disabled={selectedAnswer !== null}
             />
           );
         })}
       </div>
-      <button onClick={onBack}>Back to Start</button>
-      <p>Score: {score}</p>
+
+      <div className="buttons-container">
+        <button className="back-button" onClick={onBack}>
+          Back to Start
+        </button>
+
+        <button
+          className="next-button"
+          onClick={handleNext}
+          disabled={selectedAnswer === null}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }

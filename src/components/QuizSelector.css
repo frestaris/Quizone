@@ -1,0 +1,62 @@
+.selector-container {
+  width: 90vw;
+  margin: auto;
+  padding: 30px 40px;
+  background: #f3f4f6;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+.selector-container h2 {
+  margin-bottom: 24px;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #333;
+}
+
+.selector-label {
+  display: block;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #555;
+  text-align: left;
+}
+
+.selector-select {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  margin-top: 8px;
+  border: 2px solid #999;
+  border-radius: 8px;
+  background: white;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  cursor: pointer;
+}
+
+.selector-select:hover,
+.selector-select:focus {
+  border-color: #5a6a82;
+  outline: none;
+}
+
+.start-button {
+  margin-top: 10px;
+  padding: 14px 30px;
+  background: #5a6a82;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.start-button:hover {
+  background: #40506f;
+  transform: scale(1.05);
+}
