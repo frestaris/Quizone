@@ -15,6 +15,10 @@
   display: flex;
   justify-content: space-between;
 }
+.quiz-info p {
+  color: #a7a5a5;
+  font-weight: 600;
+}
 .answers {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

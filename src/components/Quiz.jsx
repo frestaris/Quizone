@@ -98,15 +98,15 @@ function Quiz({ config, onBack }) {
 
   return (
     <div className="quiz-container">
+      <ProgressBar current={currentIndex} total={questions.length} />
       <h2 className="question-count">Question {currentIndex + 1}</h2>
       <h2 dangerouslySetInnerHTML={{ __html: q.question }} />
       <div className="quiz-info">
-        <p>Time: {formatTime(timer)}</p>
         <p>
           Score: {score}/ {questions.length}
         </p>
+        <p>Time: {formatTime(timer)}</p>
       </div>
-      <ProgressBar current={currentIndex} total={questions.length} />
       <div className="answers">
         {q.answers.map((ans, idx) => {
           const isCorrect = ans === q.correct_answer;
@@ -130,7 +130,6 @@ function Quiz({ config, onBack }) {
           );
         })}
       </div>
-
       <div className="buttons-container">
         <button className="back-button" onClick={onBack}>
           Back
