@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./QuizSelector.css";
+import QuizRulesModal from "./QuizRulesModal";
 
 function QuizSelector({ onStartQuiz }) {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState(9);
   const [difficulty, setDifficulty] = useState("easy");
+  const [showRules, setShowRules] = useState(false);
 
   useEffect(() => {
     fetch("https://opentdb.com/api_category.php")
@@ -18,7 +20,17 @@ function QuizSelector({ onStartQuiz }) {
 
   return (
     <div className="selector-container">
-      <h2>Quiz-One</h2>
+      <h2>
+        Quiz-One
+        <span
+          className="rules-icon"
+          title="View Quiz Rules"
+          onClick={() => setShowRules(true)}
+        >
+          ❓
+        </span>
+      </h2>
+
       <label className="selector-label">
         Category:
         <select
@@ -28,7 +40,7 @@ function QuizSelector({ onStartQuiz }) {
         >
           {categories.map((cat) => (
             <option key={cat.id} value={cat.id}>
-              {cat.name.replace(/^(Entertainment|Science):\s*/, "")}{" "}
+              {cat.name.replace(/^(Entertainment|Science):\s*/, "")}
             </option>
           ))}
         </select>
@@ -50,6 +62,8 @@ function QuizSelector({ onStartQuiz }) {
       <button className="start-button" onClick={startQuiz}>
         Start Quiz
       </button>
+
+      {showRules && <QuizRulesModal onClose={() => setShowRules(false)} />}
     </div>
   );
 }

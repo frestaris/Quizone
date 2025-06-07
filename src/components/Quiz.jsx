@@ -98,7 +98,7 @@ function Quiz({ config, onBack }) {
 
   return (
     <div className="quiz-container">
-      <h2 className="question-count">Question.{currentIndex + 1}</h2>
+      <h2 className="question-count">Question {currentIndex + 1}</h2>
       <h2 dangerouslySetInnerHTML={{ __html: q.question }} />
       <div className="quiz-info">
         <p>Time: {formatTime(timer)}</p>
