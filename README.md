@@ -46,13 +46,15 @@ Quiz Rules Modal: Provides users with guidelines before starting the quiz.
 
 <hr />
 
-![Desktop Screenshot](assets/images/Desktop-1.png
-![Desktop Screenshot](assets/images/Desktop-2.png
-![Desktop Screenshot](assets/images/Desktop-3.png
+![Desktop 1](https://github.com/frestaris/Quizone/raw/ffce4c9d04f0c711682811d1131d8134c0027955/src/assets/images/Desktop-1.png)
+![Desktop 2](https://github.com/frestaris/Quizone/raw/ffce4c9d04f0c711682811d1131d8134c0027955/src/assets/images/Desktop-2.png)
+![Desktop 3](https://github.com/frestaris/Quizone/raw/ffce4c9d04f0c711682811d1131d8134c0027955/src/assets/images/Desktop-3.png)
 
-![Mobile Screenshot](assets/images/Mobile-1.png)
-![Mobile Screenshot](assets/images/Mobile-2.png)
-![Mobile Screenshot](assets/images/Mobile-3.png)
+### Mobile Views
+
+![Mobile 1](https://github.com/frestaris/Quizone/raw/ffce4c9d04f0c711682811d1131d8134c0027955/src/assets/images/Mobile-1.png)
+![Mobile 2](https://github.com/frestaris/Quizone/raw/ffce4c9d04f0c711682811d1131d8134c0027955/src/assets/images/Mobile-2.png)
+![Mobile 3](https://github.com/frestaris/Quizone/raw/ffce4c9d04f0c711682811d1131d8134c0027955/src/assets/images/Mobile-3.png)
 
 🔧 Technologies Used
 
