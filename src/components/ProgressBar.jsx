@@ -1,7 +1,7 @@
-import React from "react";
 import "./ProgressBar.css";
 
 function ProgressBar({ current, total }) {
+  // Calculate the progress percentage
   const progress = ((current + 1) / total) * 100;
 
   return (

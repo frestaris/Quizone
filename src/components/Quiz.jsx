@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ProgressBar from "./ProgressBar";
 import "./Quiz.css";
 
+// Helper function to shuffle the answer choices randomly
 function shuffleArray(array) {
-  const arr = [...array]; // create a copy to avoid mutating original
+  const arr = [...array]; // Clone array to avoid mutating the original
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+    [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap elements
   }
   return arr;
 }
@@ -18,14 +19,18 @@ function Quiz({ config, onBack }) {
   const [timer, setTimer] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+
+  // Check if current question is the last one
   const isLastQuestion = currentIndex === questions.length - 1;
 
+  // Fetch questions from API when component mounts
   useEffect(() => {
     fetch(
       `https://opentdb.com/api.php?amount=10&category=${config.category}&difficulty=${config.difficulty}`
     )
       .then((res) => res.json())
       .then((data) => {
+        // Format questions and shuffle answers
         const formatted = data.results.map((q) => {
           const answers = shuffleArray(
             q.type === "boolean"
@@ -34,6 +39,8 @@ function Quiz({ config, onBack }) {
           );
           return { ...q, answers };
         });
+
+        // Initialize quiz state
         setQuestions(formatted);
         setTimer(0);
         setShowResult(false);
@@ -43,24 +50,31 @@ function Quiz({ config, onBack }) {
       });
   }, [config]);
 
+  // Start timer when quiz is active
   useEffect(() => {
-    if (showResult) return;
+    if (showResult) return; // Stop timer if result is shown
 
     const timerId = setInterval(() => {
       setTimer((t) => t + 1);
     }, 1000);
 
+    // Clear timer on cleanup
     return () => clearInterval(timerId);
   }, [showResult]);
 
   const handleAnswer = (answer) => {
+    // Prevent changing the answer once selected
     if (selectedAnswer !== null) return;
+
     setSelectedAnswer(answer);
+
+    // Increase score if answer is correct
     if (answer === questions[currentIndex].correct_answer) {
       setScore((s) => s + 1);
     }
   };
 
+  // Move to the next question
   const handleNext = () => {
     setSelectedAnswer(null);
     if (currentIndex + 1 < questions.length) {
@@ -68,8 +82,10 @@ function Quiz({ config, onBack }) {
     }
   };
 
+  // Show loading spinner until questions are loaded
   if (questions.length === 0) return <span className="spinner"></span>;
 
+  // Show results when quiz ends
   if (showResult) {
     const percentage = ((score / questions.length) * 100).toFixed(0);
     const scoreClass = percentage >= 60 ? "score green" : "score red";
@@ -78,6 +94,7 @@ function Quiz({ config, onBack }) {
       <div className="result-container">
         <h2>Quiz Completed</h2>
         <p className={scoreClass}>{percentage}%</p>
+        <p>Your Time: {formatTime(timer)}</p>
         <p>
           {score >= 6
             ? "✅ Great job! You did really well!"
@@ -90,6 +107,7 @@ function Quiz({ config, onBack }) {
 
   const q = questions[currentIndex];
 
+  // Format time in MM:SS format
   function formatTime(seconds) {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -100,6 +118,8 @@ function Quiz({ config, onBack }) {
     <div className="quiz-container">
       <ProgressBar current={currentIndex} total={questions.length} />
       <h2 className="question-count">Question {currentIndex + 1}</h2>
+
+      {/* Render question with potential HTML formatting */}
       <h2 dangerouslySetInnerHTML={{ __html: q.question }} />
       <div className="quiz-info">
         <p>
@@ -111,6 +131,8 @@ function Quiz({ config, onBack }) {
         {q.answers.map((ans, idx) => {
           const isCorrect = ans === q.correct_answer;
           const isSelected = selectedAnswer === ans;
+
+          // Determine button styling based on selected/correct status
           return (
             <button
               key={idx}
@@ -125,17 +147,20 @@ function Quiz({ config, onBack }) {
                   : ""
               }
               dangerouslySetInnerHTML={{ __html: ans }}
-              disabled={selectedAnswer !== null}
+              disabled={selectedAnswer !== null} // Disable buttons after selection
             />
           );
         })}
       </div>
+
+      {/* Navigation buttons */}
       <div className="buttons-container">
         <button className="back-button" onClick={onBack}>
           Back
         </button>
 
         {isLastQuestion ? (
+          // Show submit on final question
           <button
             className="next-button"
             onClick={() => setShowResult(true)}
@@ -144,6 +169,7 @@ function Quiz({ config, onBack }) {
             Submit
           </button>
         ) : (
+          // Otherwise show next
           <button
             className="next-button"
             onClick={handleNext}

@@ -8,12 +8,14 @@ function QuizSelector({ onStartQuiz }) {
   const [difficulty, setDifficulty] = useState("easy");
   const [showRules, setShowRules] = useState(false);
 
+  // Fetch quiz categories from API when the component mounts
   useEffect(() => {
     fetch("https://opentdb.com/api_category.php")
       .then((res) => res.json())
       .then((data) => setCategories(data.trivia_categories));
   }, []);
 
+  // Handle quiz start and pass selected config to parent component
   const startQuiz = () => {
     onStartQuiz({ category, difficulty });
   };
@@ -31,6 +33,7 @@ function QuizSelector({ onStartQuiz }) {
         </span>
       </h2>
 
+      {/* Category dropdown selector */}
       <label className="selector-label">
         Category:
         <select
@@ -40,12 +43,14 @@ function QuizSelector({ onStartQuiz }) {
         >
           {categories.map((cat) => (
             <option key={cat.id} value={cat.id}>
+              {/* Remove "Entertainment:" or "Science:" from category names */}
               {cat.name.replace(/^(Entertainment|Science):\s*/, "")}
             </option>
           ))}
         </select>
       </label>
 
+      {/* Difficulty dropdown selector */}
       <label className="selector-label">
         Difficulty:
         <select
@@ -63,6 +68,7 @@ function QuizSelector({ onStartQuiz }) {
         Start Quiz
       </button>
 
+      {/* Conditionally render the quiz rules modal */}
       {showRules && <QuizRulesModal onClose={() => setShowRules(false)} />}
     </div>
   );

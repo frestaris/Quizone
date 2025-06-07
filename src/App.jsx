@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import QuizSelector from "./components/QuizSelector";
 import Quiz from "./components/Quiz";
 import "./App.css";
@@ -8,6 +8,7 @@ function App() {
 
   return (
     <div className="app-container">
+      {/* If no quizConfig is set, show the QuizSelector component */}
       {!quizConfig ? (
         <QuizSelector onStartQuiz={setQuizConfig} />
       ) : (
