@@ -10,6 +10,13 @@
   text-align: center;
 }
 
+@media screen and (max-width: 768px) {
+  .selector-container {
+    width: 90vw;
+    padding: 20px 24px;
+  }
+}
+
 .selector-container h2 {
   margin-bottom: 24px;
   font-weight: 700;
